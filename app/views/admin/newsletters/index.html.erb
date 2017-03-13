@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<h2>Users subscribed to the newsletter</h2><br>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Subscribed</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @newsletters.each do |newsletter| %>
+      <tr>
+        <td><%= newsletter.email %></td>
+        <td><%= newsletter.subscribed %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

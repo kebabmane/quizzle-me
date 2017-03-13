@@ -1,0 +1,14 @@
+ <tr>
+      	<td> <%= link_to fact.id, fact %></td>
+        <td><%= fact.fact_string.truncate(40) %></td>
+        <td><%= fact.created_at.strftime("%d %b. %Y") %></td>
+        <td><%= fact.impressionist_count %></td>
+        <td>
+        	<%= form_for(fact) do |f| %>
+      			<%= f.check_box :displayed %>
+      			<%= f.submit 'change status', :class => 'btn btn-primary btn-sm' %>
+      		<% end  %>
+      	</td>
+        <td><%= link_to 'edit', edit_fact_path(fact), { :class=>"btn btn-primary" } %>
+        <%= link_to 'destroy', fact, :class => 'btn btn-danger', method: :delete, data: { confirm: 'are you sure?' } %></td>
+</tr>

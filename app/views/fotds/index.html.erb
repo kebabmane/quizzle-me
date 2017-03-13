@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Fotds</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fact</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @fotds.each do |fotd| %>
+      <tr>
+        <td><%= fotd.fact_id %></td>
+        <td><%= link_to 'Show', fotd %></td>
+        <td><%= link_to 'Edit', edit_fotd_path(fotd) %></td>
+        <td><%= link_to 'Destroy', fotd, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Fotd', new_fotd_path %>

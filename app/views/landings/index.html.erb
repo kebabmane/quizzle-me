@@ -1,0 +1,191 @@
+<%
+meta title: "quizzle.me",
+     description: "random facts - thats pretty much it",
+     keywords: %w(fact facts random information android ios )
+%>
+
+<div class="banner">
+  <%= image_tag("lightbulb.png", class: "container-image") %>
+  <h1 class="title">quizzle.me</h1>
+  <p class="description">Just random facts, nothing more nothing less....</p>
+<a href="https://play.google.com/store/apps/details?id=me.kebabman.quizzle">
+    <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" style="width: 15%; height: 15%" />
+</a>
+
+  <%= image_tag("header-android.png") %>
+</div><!-- /banner -->
+
+
+
+<!-- Services -->
+ <section class="services-section" id="section-1">
+
+   <div class="container">
+
+
+     <div class="row">
+
+       <div class="col-md-4 col-services">
+
+         <!-- Icons -->
+         <figure>
+           <%= image_tag("Balloons.png", class: "img-services") %>
+         </figure>
+
+         <!-- Title -->
+         <h4>facts</h4>
+
+         <!-- Description -->
+         <p>A growing database of facts, facts about animals, about business, about food, about sports and growing each and every day - all verified by cats.</p>
+
+       </div> <!-- /.col-md-4 -->
+
+       <div class="col-md-4 col-services">
+
+         <!-- Icons --><br>
+         <figure>
+           <%= image_tag("Wind-Sock.png", class: "img-services img-margin") %>
+         </figure>
+
+         <!-- Title -->
+         <h4>api</h4>
+
+         <!-- Description -->
+         <p>Private API that will be launching in the near future so other people can build awesome apps with our facts.</p>
+
+
+       </div> <!-- /.col-md-4 -->
+
+       <div class="col-md-4 col-services"><br>
+         <!-- Icons -->
+         <figure>
+           <img src="https://api.icons8.com/download/5814b9457c13eb34677792742559b9f459b9eafc/Color/PNG/256/Very_Basic/lock-256.png" title="Lock" width="256" class="img-services" >
+         </figure>
+
+         <!-- Title -->
+         <h4>privacy</h4>
+
+         <!-- Description -->
+         <p>We take privacy pretty seriously, thats why we dont ask you to sign up, log in or anything like that we dont track device ID's or ask for special permissions.</p>
+
+
+       </div> <!-- /.col-md-4 -->
+
+     </div> <!-- /.row -->
+
+   </div> <!-- /.container -->
+
+ </section> <!-- /.services-section -->
+
+ <section class="randfact-section">
+     <div class="row">
+       <div class="randfact-banner">
+         <div class="col-md-6"><br><br><br><br><br>
+          <h4 class="title text-center">and the random fact</h4>
+          <h4 class="title text-center">of the day is...</h4>
+        </div>
+        <div class="col-md-6">
+
+          <div class="col-md-8"><br><br><br>
+<div class="offer offer-medium offer-info">
+  <div class="offer-content">
+    <h3 class="lead text-black">
+      <%= @rand_record.fact_string %>
+      <br>
+    </h3>
+  </div>
+</div>
+</div>
+        </div>
+
+      </div>
+     </div>
+ </section>
+
+
+<!-- Subscribe -->
+ <section class="subscribe-section">
+
+   <div class="container">
+
+     <div class="row">
+
+       <div class="col-md-12">
+
+         <!-- Title -->
+         <h3 class="title">give us your details and we will let you know when new stuff comes online</h3>
+
+         <!-- Subscribe form -->
+         <div class="row">
+
+           <div class="col-md-6 col-md-offset-3 col-subscribe">
+
+
+             <%= simple_form_for(global_add_newsletter, :url => admin_newsletters_path, remote: true, :html => { :class => 'form-inline' }) do |f| %>
+
+             <ul class="errors"></ul>
+
+             <div class="form-group">
+               <%= f.email_field :email, class: 'form-control' %>
+               <%= f.submit "Submit", { :class=>"btn btn-primary" } %>
+             </div>
+             <% end %>
+
+           </div> <!-- /.col-md-6 -->
+
+         </div> <!-- /.row -->
+
+       </div> <!-- /.col-md-12 -->
+
+     </div> <!-- /.row -->
+
+   </div> <!-- /.container -->
+
+ </section> <!-- /.subscribe-section -->
+
+ <!-- Button trigger modal -->
+ <button id="toBottom" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#new_fact_modal">
+   submit a fact
+ </button>
+
+ <!-- Modal -->
+ <div class="modal fade" id="new_fact_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+         <h4 class="modal-title" id="myModalLabel">submit a fact</h4>
+       </div>
+       <div class="modal-body">
+         <% modal ||= false %>
+         <% remote = modal ? true : false %>
+         <%= simple_form_for(global_add_fact, :url => anon_facts_path, remote: true, html: {role: :form, 'data-model' => 'fact', id: 'new_fact_form'}) do |f| %>
+
+         <ul class="errors"></ul>
+
+         <div class="form-group">
+           <%= f.text_area :fact_string, rows: "6", class: 'form-control' %>
+           <span class="help-block"></span>
+         </div>
+
+       <div class="modal-footer">
+           <div class="actions">
+             <%= f.submit "Submit", { :class=>"btn btn-primary" } %>
+           </div>
+         <% end %>
+       </div>
+       </div>
+
+     </div>
+   </div>
+ </div>
+
+ <script>
+ $('#new_fact_form').on('submit', function() {
+    $('#new_fact_modal').modal('hide');
+ })
+
+ $('.modal').on('hidden.bs.modal', function(){
+    $(this).find('form')[0].reset();
+ })
+ </script>

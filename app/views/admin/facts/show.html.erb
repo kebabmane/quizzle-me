@@ -1,0 +1,30 @@
+<h1 class="page-header">Fact ID - <%= @fact.id %>
+	<% if user_signed_in? %>
+		<%= link_to 'Edit', edit_fact_path(@fact), { :class=>"btn btn-primary pull-right" }  %></h1>
+	<% end %>
+
+<div class="row">
+
+	<div class="col-xs-7">
+				<div class="offer offer-info">
+					<div class="shape">
+						<div class="shape-text">
+							fact
+						</div>
+					</div>
+					<div class="offer-content">
+						<h3 class="lead">
+							<%= @fact.fact_string %>
+						</h3>
+					</div>
+				</div>
+			</div>
+
+  <div class="col-xs-5">
+  		<h4>fact stat's</h4>
+  		<br>
+  	Time's this fact has been seen <%= @fact.impressionist_count %> times <br><br><hr>
+  	<h4>fact tags</h4><br>
+  	<%= @fact.tag_list %>
+  </div>
+</div>

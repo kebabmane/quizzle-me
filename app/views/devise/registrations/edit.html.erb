@@ -1,0 +1,53 @@
+<h2>edit account</h2><br>
+<div class="col-md-10">
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#default" data-toggle="tab">info</a></li>
+  <li><a href="#password" data-toggle="tab">change password</a></li>
+  <li><a href="#messages" data-toggle="tab"">messages</a></li>
+</ul>
+
+<br>
+
+
+<div id="my-tab-content" class="tab-content">
+
+<div class="tab-pane active" id="default">
+<%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-6") do |f| %>
+  <%= devise_error_messages! %>
+
+    <%= f.email_field :email, autofocus: true %>
+    <%= f.text_field :nickname %>
+    <%= f.text_field :first_name %>
+    <%= f.text_field :last_name %>
+    <%= f.text_field :home_page %>
+    <%= f.date_field :date_of_birth %>
+  
+  
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+ 
+    <%= f.submit "update", class: "btn btn-primary" %>
+ 
+<% end %>
+</div>
+
+ <div class="tab-pane" id="password">
+    <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-6") do |f| %>
+      <%= devise_error_messages! %>
+    <%= f.password_field :current_password %>
+    <%= f.password_field :password %>
+    <%= f.password_field :password_confirmation %>
+    <%= f.submit "change password", class: "btn btn-primary" %>
+    <% end %>   
+ </div>
+
+ <div class="tab-pane" id="messages">
+            <h1>Messages</h1>
+            <p>messages messages messages messages </p>
+ </div>
+
+</div>
+
+

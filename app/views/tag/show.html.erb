@@ -1,0 +1,19 @@
+<h1>Facts Tagged as <%= @tag.name %></h1>
+
+<% if @facts.count > 0 %>
+
+  <ul>
+
+  <% @facts.each do |fact| %>
+
+    <li><%= link_to fact.id, fact_path(fact) %></li>
+
+  <% end %>
+
+  </ul>
+
+<% else %>
+
+  <p>This tag is not associated with any facts.</p>
+
+<% end %>

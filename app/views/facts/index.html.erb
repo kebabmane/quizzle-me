@@ -1,0 +1,68 @@
+<h1 class="page-header">facts
+	 <% if user_signed_in? %>
+	 <div class="pull-right">
+		<%= link_to 'new fact', new_fact_path, :remote => true, "data-toggle" => "modal", "data-target" => "#new_fact_modal", :class=>"btn btn-primary" %>
+		<%= link_to 'upload CSV', new_fact_path, :remote => true, "data-toggle" => "modal", "data-target" => "#new_fact_upload_modal", :class=>"btn btn-primary" %>
+		<%= link_to 'download CSV', facts_path(format: :csv), :class=>"btn btn-success" %>
+	</div>
+	</h1>
+	<% end %>
+
+<table class="table table-striped" id='facts_table'>
+  <thead>
+    <tr>
+      <th>fact ID number</th>
+      <th>fact string</th>
+      <th>created at</th>
+      <th>hits</th>
+      <th colspan="2">actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @facts.each do |fact| %>
+      		<%= render partial: 'table_row', locals: {fact: fact} %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<div class="text-center">
+	<%= will_paginate @facts, renderer: BootstrapPagination::Rails %>
+</div>
+
+<div class="modal fade" id="new_fact_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">add new fact</h4>
+      </div>
+      <div class="modal-body">
+        <%# Render the new person form (passing modal => true to enable remote => true) %>
+        <%= render 'form', modal: true %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="new_fact_upload_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">upload fact data</h4>
+      </div>
+      <div class="modal-body">
+
+        <%= form_tag import_facts_path, multipart: true do %>
+          <%= file_field_tag :file %><br>
+          <%= submit_tag "import", class: "btn btn-primary" %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
